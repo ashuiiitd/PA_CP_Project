@@ -75,9 +75,11 @@ public class Analysis extends ForwardFlowAnalysis
 		HashMap<String,String > outval =(HashMap) out;
 		//inval.copy(outval);
 		
+		System.out.println("Inset before "+inval);
+		
 		count++;
-		System.out.println(count);
 		System.out.println("Currrent "+unit);
+		
 		
 		if(count==1)
 		{
@@ -104,7 +106,7 @@ public class Analysis extends ForwardFlowAnalysis
 					br.close();
 				}	
 				
-				System.out.println("original hashmap "+original_value);
+				//System.out.println("original hashmap "+original_value);
 				
 			} 
 			catch (FileNotFoundException e) 
@@ -126,6 +128,7 @@ public class Analysis extends ForwardFlowAnalysis
 		//InvokeExpr
 		if(s.containsInvokeExpr())
 		{
+			//System.out.println("Original Set "+original_value);
 			if(DEBUG==1)
 			{
 				System.out.println();
@@ -177,6 +180,7 @@ public class Analysis extends ForwardFlowAnalysis
 				{
 //					bw.write(return_param+" "+"!");
 //					bw.newLine();
+					original_value.put(return_param, "!");
 					outval.put(return_param, "!");
 				}
 				
@@ -184,7 +188,9 @@ public class Analysis extends ForwardFlowAnalysis
 				
 				if(br!=null)
 				{
-					outval.put(return_param, br.readLine());
+					String temp=br.readLine();
+					original_value.put(return_param, temp);
+					outval.put(return_param, temp);
 					
 				}
 				br.close();
@@ -211,23 +217,23 @@ public class Analysis extends ForwardFlowAnalysis
 				String var= v.toString();
 					if(v instanceof Local)
 					{
-						System.out.println(inval);
-						System.out.println(outval);
+						//System.out.println(inval);
+						//System.out.println(outval);
 
 						
 						if(val instanceof AddExpr)
 						{
-							System.out.println("-------original value---------");
-							System.out.println(original_value);
-							System.out.println("-------original value---------");
+//							System.out.println("-------original value---------");
+//							System.out.println(original_value);
+//							System.out.println("-------original value---------");
 							
 							
 							Value op1=((AddExpr) val).getOp1();
 							Value op2=((AddExpr) val).getOp2();
 							
-							System.out.println("------------");
-							System.out.println(op1+"   "+op2);
-							System.out.println("------------");
+//							System.out.println("------------");
+//							System.out.println(op1+"   "+op2);
+//							System.out.println("------------");
 							
 							boolean isComputable=true;
 							int first=0,second=0;
@@ -258,24 +264,28 @@ public class Analysis extends ForwardFlowAnalysis
 							{
 								Integer third=first+second;
 							    original_value.put(var, third.toString());
+							    outval.put(var,third.toString());
 							}
 							else
-								original_value.put(var, "?");			
+							{
+								original_value.put(var, "?");
+								outval.put(var,"?");
+							}
 						}
 						
 						else if(val instanceof MulExpr)
 						{
-							System.out.println("-------original value---------");
-							System.out.println(original_value);
-							System.out.println("-------original value---------");
+//							System.out.println("-------original value---------");
+//							System.out.println(original_value);
+//							System.out.println("-------original value---------");
+//							
 							
-							
-							Value op1=((AddExpr) val).getOp1();
-							Value op2=((AddExpr) val).getOp2();
-							
-							System.out.println("------------");
-							System.out.println(op1+"   "+op2);
-							System.out.println("------------");
+							Value op1=((MulExpr) val).getOp1();
+							Value op2=((MulExpr) val).getOp2();
+//							
+//							System.out.println("------------");
+//							System.out.println(op1+"   "+op2);
+//							System.out.println("------------");
 							
 							boolean isComputable=true;
 							int first=0,second=0;
@@ -306,24 +316,28 @@ public class Analysis extends ForwardFlowAnalysis
 							{
 								Integer third=first*second;
 							    original_value.put(var, third.toString());
+							    outval.put(var,third.toString());
 							}
 							else
-								original_value.put(var, "?");			
+							{
+								original_value.put(var, "?");
+								outval.put(var,"?");
+							}
 						}
 						
 						else if(val instanceof SubExpr)
 						{
-							System.out.println("-------original value---------");
-							System.out.println(original_value);
-							System.out.println("-------original value---------");
+//							System.out.println("-------original value---------");
+//							System.out.println(original_value);
+//							System.out.println("-------original value---------");
 							
 							
-							Value op1=((AddExpr) val).getOp1();
-							Value op2=((AddExpr) val).getOp2();
+							Value op1=((SubExpr) val).getOp1();
+							Value op2=((SubExpr) val).getOp2();
 							
-							System.out.println("------------");
-							System.out.println(op1+"   "+op2);
-							System.out.println("------------");
+//							System.out.println("------------");
+//							System.out.println(op1+"   "+op2);
+//							System.out.println("------------");
 							
 							boolean isComputable=true;
 							int first=0,second=0;
@@ -354,25 +368,29 @@ public class Analysis extends ForwardFlowAnalysis
 							{
 								Integer third=first-second;
 							    original_value.put(var, third.toString());
+							    outval.put(var,third.toString());
 							}
 							else
-								original_value.put(var, "?");			
+							{
+								original_value.put(var, "?");
+								outval.put(var,"?");
+							}
 						}
 						
 						
 						else if(val instanceof DivExpr)
 						{
-							System.out.println("-------original value---------");
-							System.out.println(original_value);
-							System.out.println("-------original value---------");
+//							System.out.println("-------original value---------");
+//							System.out.println(original_value);
+//							System.out.println("-------original value---------");
+//							
 							
+							Value op1=((DivExpr) val).getOp1();
+							Value op2=((DivExpr) val).getOp2();
 							
-							Value op1=((AddExpr) val).getOp1();
-							Value op2=((AddExpr) val).getOp2();
-							
-							System.out.println("------------");
-							System.out.println(op1+"   "+op2);
-							System.out.println("------------");
+//							System.out.println("------------");
+//							System.out.println(op1+"   "+op2);
+//							System.out.println("------------");
 							
 							boolean isComputable=true;
 							int first=0,second=0;
@@ -403,9 +421,13 @@ public class Analysis extends ForwardFlowAnalysis
 							{
 								Integer third=first/second;
 							    original_value.put(var, third.toString());
+							    outval.put(var,third.toString());
 							}
 							else
-								original_value.put(var, "?");			
+							{
+								original_value.put(var, "?");
+								outval.put(var,"?");
+							}
 						}
 						
 						
@@ -415,7 +437,7 @@ public class Analysis extends ForwardFlowAnalysis
 						{
 						
 						//Iterator it=useb.iterator();
-								
+							//System.out.println("in else expression");
 							String temp=val.toString();
 							while(original_value.get(temp.toString())!=null)
 							{
@@ -426,6 +448,8 @@ public class Analysis extends ForwardFlowAnalysis
 								original_value.put(var,temp);
 							}
 						}
+						
+						//System.out.println("original 2222"+original_value);
 						
 						if(!v.toString().contains("$"))
 						{
@@ -467,7 +491,8 @@ public class Analysis extends ForwardFlowAnalysis
 			}
 		}
 		
-		System.out.println("After "+outval);
+		System.out.println("Outset After  "+outval);
+		System.out.println("------------------------------------------------------------------------------------");
 	}
 
 	@Override
@@ -520,8 +545,8 @@ public class Analysis extends ForwardFlowAnalysis
 
 			}
 		}
-		System.out.println("In Merge inval1 "+inval1);
-		System.out.println("In Merge inval2 "+inval2);
+//		System.out.println("In Merge inval1 "+inval1);
+//		System.out.println("In Merge inval2 "+inval2);
 		HashMap<String,String> outval=(HashMap)out;
 		Set<String> set=inval1.keySet();
 		for(String key:set)
@@ -529,21 +554,34 @@ public class Analysis extends ForwardFlowAnalysis
 			//original_value.put(var,val.toString());
 			if(inval1.get(key).equals(inval2.get(key)))
 			{
+				original_value.put(key,inval1.get(key));
 				outval.put(key, inval1.get(key));
 			}
 			else
 			{
 				if(inval1.get(key).equals("?") || inval2.get(key).equals("?"))
+				{
+					original_value.put(key,"?");
 					outval.put(key, "?");
+				}
 				else if(!inval1.get(key).equals("?") && !inval2.get(key).equals("?") &&!inval1.get(key).equals("!") && !inval2.get(key).equals("!"))
+				{
+					original_value.put(key,"?");
 					outval.put(key, "?");
+				}
 				else if(!inval1.get(key).equals("!") )//!inval2.get(key).equals("!"))
+				{
+					original_value.put(key,inval1.get(key));
 					outval.put(key, inval1.get(key));
+				}
 				else
+				{
+					original_value.put(key,inval2.get(key));
 					outval.put(key, inval2.get(key));
+				}
 			}
 		}
-		System.out.println("In Merge outval "+outval);
+		//System.out.println("In Merge outval "+outval);
 		//System.out.println("Hey");
 	}
 
@@ -560,10 +598,11 @@ public class Analysis extends ForwardFlowAnalysis
 		{		
 			Local loc = it.next();
 			original_value.put(loc.getName(),"?");	
-			if(!loc.getName().contains("$"))
-			{
-				inval1.put(loc.getName(),"?");
-			}
+//			if(!loc.getName().contains("$"))
+//			{
+//				inval1.put(loc.getName(),"?");
+//			}
+			inval1.put(loc.getName(),"?");
 		}
 				
 		return inval1;
@@ -581,10 +620,11 @@ public class Analysis extends ForwardFlowAnalysis
 		{
 			Local loc = it.next();
 			
-			if(!loc.getName().contains("$"))
-				{
-					inval1.put(loc.getName(),"!");
-				}
+//			if(!loc.getName().contains("$"))
+//				{
+//					inval1.put(loc.getName(),"!");
+//				}
+			inval1.put(loc.getName(),"!");
 		}
 		return inval1;
 	}

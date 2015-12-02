@@ -5,6 +5,36 @@ public class Flow
 	 * @param args
 	 */
 	
+	void foo(int x,int y)
+	{
+		int z,m,k;
+		z=x+10;
+		if(z<10)
+		{
+			k=bar1(10,z);
+		}
+		else 
+		{
+			k=bar2(z,20);
+		}
+		m=k/25;
+	}
+	
+	int bar1(int a,int b)
+	{
+		int l;
+		l=a*10;
+		return l;
+	}
+	
+	int bar2(int c,int d)
+	{
+		int n;
+		n=d*5;
+		return n;
+	}
+	
+	
 //	int foo(int param1,int param2)
 //	{
 //		int param3=param1;
@@ -39,36 +69,39 @@ public class Flow
 	
 	
 	
-	void func1()
-	{
-		int x,y;
-		int a=1;
-		while(a>0)
-		{
-			x=check(a);
-			
-		}
-		x=90;
-	}
-	
-	
-	
-	int check(int num)
-	{
-	 int j=2;
-	int flag=0;
-	 while(j<=num/2)
-	{
-	 if(num <= j/2)
-	{
-	 flag=1;
-	 break;
-	 }
-	j=j+1;
-	 }
-	j=j+1;
-	 return flag;
-	}
+//	void func1()
+//	{
+//		int x,y;
+//		int a=1;
+//		while(a>0)
+//		{
+//			x=check(a);
+//			y=x*10;
+//			x=x+1;
+//			y=y+1;
+//			
+//		}
+//		//x=90;
+//	}
+//	
+//	
+//	
+//	int check(int num)
+//	{
+//	 int j=2,qw=3;
+//	int flag=0;
+//	 while(j<=num/2)
+//	{
+//	 if(num <= j/2)
+//	{
+//	 flag=1;
+//	 break;
+//	 }
+//	j=j+1;
+//	 }
+//	j=j+1;
+//	 return qw;
+//	}
 	
 	
 }
